@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Art Gallery</string>
+    <string name="image1_description">landscape of a valley, with a wheat field at the beginning, mountains in the background and clouds covering the sky on the horizon</string>
+    <string name="image1_title">L\'Allee des Alyscamps</string>
+    <string name="image1_author">Vincent Van Gogh (1888)</string>
+</resources>
