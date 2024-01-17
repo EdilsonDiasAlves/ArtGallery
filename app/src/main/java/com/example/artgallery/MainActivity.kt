@@ -24,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -31,8 +32,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.graphics.toColorInt
 import com.example.artgallery.ui.theme.ArtGalleryTheme
+import com.example.artgallery.ui.theme.DarkBlue
+import com.example.artgallery.ui.theme.LightBlue
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,31 +61,37 @@ fun ArtWorkLayout() {
             .padding(50.dp)
             .padding(top = 100.dp)
     ) {
-        Box(modifier = Modifier
-            .padding(bottom = 50.dp)
-            .background(Color.Transparent)
-            .border(1.dp, Color.LightGray)) {
-            Image(
-                painter = painterResource(id = R.drawable.image1),
-                contentDescription = stringResource(R.string.image1_description),
-                contentScale = ContentScale.Fit,
-                modifier = Modifier
-                    .size(300.dp)
-                    .padding(30.dp)
-            )
-        }
+        ArtWorkIllustration()
         ArtWorkDetails()
         ButtonSection()
     }
 }
 
 @Composable
+fun ArtWorkIllustration(modifier: Modifier = Modifier) {
+    Box(modifier = Modifier
+        .padding(bottom = 50.dp)
+        .background(Color.Transparent)
+        .shadow(elevation = 5.dp, spotColor = Color.Transparent)
+        .border(1.dp, Color.LightGray)) {
+        Image(
+            painter = painterResource(id = R.drawable.image1),
+            contentDescription = stringResource(R.string.image1_description),
+            contentScale = ContentScale.Fit,
+            modifier = Modifier
+                .size(350.dp)
+                .padding(start = 10.dp, top = 20.dp, end = 10.dp, bottom = 20.dp)
+        )
+    }
+}
+
+@Composable
 fun ArtWorkDetails(modifier: Modifier = Modifier) {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
-            .background(Color("#E6EAF5".toColorInt()))
+            .background(LightBlue)
             .padding(10.dp)
             .width(300.dp)
     ) {
@@ -108,14 +116,14 @@ fun ButtonSection(modifer:Modifier = Modifier) {
     ) {
         Button(
             onClick = { /* Ação do botão */ },
-            colors = ButtonDefaults.buttonColors(containerColor = Color("#6476B8".toColorInt())),
+            colors = ButtonDefaults.buttonColors(containerColor = DarkBlue),
             modifier = Modifier.width(130.dp)) {
             Text("Previous")
         }
         Spacer(Modifier.weight(1f))
         Button(
             onClick = { /* Ação do botão */ },
-            colors = ButtonDefaults.buttonColors(containerColor = Color("#6476B8".toColorInt())),
+            colors = ButtonDefaults.buttonColors(containerColor = DarkBlue),
             modifier = Modifier.width(130.dp)) {
             Text("Next")
         }
