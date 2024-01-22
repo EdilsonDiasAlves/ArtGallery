@@ -1,4 +1,4 @@
-# Task Manager App
+# Art Gallery App
 
 ## Description
 
