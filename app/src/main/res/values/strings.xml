@@ -1,6 +1,40 @@
 <resources>
     <string name="app_name">Art Gallery</string>
-    <string name="image1_description">landscape of a valley, with a wheat field at the beginning, mountains in the background and clouds covering the sky on the horizon</string>
+    <string name="image1_description">paisagem de um vale, com um campo de trigo no início, montanhas ao fundo e nuvens cobrindo o céu no horizonte</string>
     <string name="image1_title">L\'Allee des Alyscamps</string>
-    <string name="image1_author">Vincent Van Gogh (1888)</string>
+    <string name="image1_author">Vincent Van Gogh</string>
+    <string name="image1_year">1888</string>
+
+    <string name="image2_description">Mulher com sorriso enigmático em um fundo difuso</string>
+    <string name="image2_title">Mona Lisa</string>
+    <string name="image2_author">Leonardo da Vinci</string>
+    <string name="image2_year">1503</string>
+
+    <string name="image3_description">Homem com mãos no rosto e expressão de desespero em uma ponte</string>
+    <string name="image3_title">O Grito</string>
+    <string name="image3_author">Edvard Munch</string>
+    <string name="image3_year">1893</string>
+
+    <string name="image4_description">Homem nu e com pernas desproporcionalmente grandes sentado ao lado de um cacto num dia ensolarado</string>
+    <string name="image4_title">Abaporu</string>
+    <string name="image4_author">Tarsila do Amaral</string>
+    <string name="image4_year">1928</string>
+
+    <string name="image5_description">Moça com brinco de pérola em um fundo negro</string>
+    <string name="image5_title">Moça com Brinco de Pérola</string>
+    <string name="image5_author">Johannes Vermeer</string>
+    <string name="image5_year">1665</string>
+
+    <string name="image6_description">Três relógios derretidos, um deles pendurados em uma árvore seca</string>
+    <string name="image6_title">A Persistência da Memória</string>
+    <string name="image6_author">Salvador Dalí</string>
+    <string name="image6_year">1931</string>
+
+    <string name="image7_description">Rostos de pessoas de diferentes etnias amontoados com uma fábrica ao fundo</string>
+    <string name="image7_title">Operários</string>
+    <string name="image7_author">Tarsíla do Amaral</string>
+    <string name="image7_year">1933</string>
+
+    <string name="previous_button_text">Previous</string>
+    <string name="next_button_text">Next</string>
 </resources>

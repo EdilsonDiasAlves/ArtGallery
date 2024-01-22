@@ -22,6 +22,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -32,13 +36,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.artgallery.model.ArtWork
+import com.example.artgallery.repository.ArtWorkRepository
 import com.example.artgallery.ui.theme.ArtGalleryTheme
 import com.example.artgallery.ui.theme.DarkBlue
 import com.example.artgallery.ui.theme.LightBlue
 
 class MainActivity : ComponentActivity() {
+
+    private val artWorkRepository by lazy { ArtWorkRepository(this) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val artWorks = artWorkRepository.artWorks
         setContent {
             ArtGalleryTheme {
                 // A surface container using the 'background' color from the theme
@@ -46,7 +56,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ArtWorkLayout()
+                    ArtWorkLayout(artWorks)
                 }
             }
         }
@@ -54,29 +64,38 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ArtWorkLayout() {
+fun ArtWorkLayout(artWorks: List<ArtWork>) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(50.dp)
             .padding(top = 100.dp)
     ) {
-        ArtWorkIllustration()
-        ArtWorkDetails()
-        ButtonSection()
+
+        var currentIndex by remember { mutableStateOf(0) }
+        ArtWorkIllustration(artWorks[currentIndex])
+        ArtWorkDetails(artWorks[currentIndex])
+        ButtonSection(
+            onPreviousClick = {
+                if(currentIndex > 0) currentIndex --
+        },
+            onNextClick = {
+                if(currentIndex < artWorks.size - 1) currentIndex ++
+            }
+        )
     }
 }
 
 @Composable
-fun ArtWorkIllustration(modifier: Modifier = Modifier) {
+fun ArtWorkIllustration(artWork: ArtWork, modifier: Modifier = Modifier) {
     Box(modifier = Modifier
         .padding(bottom = 50.dp)
         .background(Color.Transparent)
         .shadow(elevation = 5.dp, spotColor = Color.Transparent)
         .border(1.dp, Color.LightGray)) {
         Image(
-            painter = painterResource(id = R.drawable.image1),
-            contentDescription = stringResource(R.string.image1_description),
+            painter = painterResource(id = artWork.imageResId),
+            contentDescription = artWork.description,
             contentScale = ContentScale.Fit,
             modifier = Modifier
                 .size(350.dp)
@@ -86,7 +105,7 @@ fun ArtWorkIllustration(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ArtWorkDetails(modifier: Modifier = Modifier) {
+fun ArtWorkDetails(artWork: ArtWork, modifier: Modifier = Modifier) {
     Column(
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Center,
@@ -96,13 +115,13 @@ fun ArtWorkDetails(modifier: Modifier = Modifier) {
             .width(300.dp)
     ) {
         Text(
-            text = stringResource(R.string.image1_title),
+            text = artWork.title,
             fontSize = 20.sp,
             modifier = Modifier
 
         )
         Text(
-            text = stringResource(R.string.image1_author),
+            text = artWork.author + " (" + artWork.year + ")",
             fontSize = 15.sp,
             modifier = Modifier
         )
@@ -110,22 +129,22 @@ fun ArtWorkDetails(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ButtonSection(modifer:Modifier = Modifier) {
+fun ButtonSection(onPreviousClick: () -> Unit, onNextClick: () -> Unit, modifer:Modifier = Modifier) {
     Row(
         modifier = Modifier.padding(top = 20.dp)
     ) {
         Button(
-            onClick = { /* Ação do botão */ },
+            onClick = onPreviousClick,
             colors = ButtonDefaults.buttonColors(containerColor = DarkBlue),
             modifier = Modifier.width(130.dp)) {
-            Text("Previous")
+            Text(stringResource(R.string.previous_button_text))
         }
         Spacer(Modifier.weight(1f))
         Button(
-            onClick = { /* Ação do botão */ },
+            onClick = onNextClick,
             colors = ButtonDefaults.buttonColors(containerColor = DarkBlue),
             modifier = Modifier.width(130.dp)) {
-            Text("Next")
+            Text(stringResource(R.string.next_button_text))
         }
     }
 }
@@ -136,6 +155,15 @@ fun ButtonSection(modifer:Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     ArtGalleryTheme {
-        ArtWorkLayout()
+        ArtWorkLayout(
+            listOf(
+                ArtWork(
+                    title = stringResource(id = R.string.image1_title),
+                    description = stringResource(id = R.string.image1_description),
+                    author = stringResource(id = R.string.image1_author),
+                    year = stringResource(id = R.string.image1_year),
+                    imageResId = R.drawable.image1)
+            )
+        )
     }
 }
