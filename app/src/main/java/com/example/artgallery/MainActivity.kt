@@ -133,9 +133,9 @@ fun ArtWorkDetails(artWork: ArtWork, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ButtonSection(onPreviousClick: () -> Unit, onNextClick: () -> Unit, modifer:Modifier = Modifier) {
+fun ButtonSection(onPreviousClick: () -> Unit, onNextClick: () -> Unit, modifier:Modifier = Modifier) {
     Row(
-        modifier = modifer.padding(top = 20.dp)
+        modifier = modifier.padding(top = 20.dp)
     ) {
         Button(
             onClick = onPreviousClick,
