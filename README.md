@@ -6,6 +6,8 @@ App created as a challenge using jetpack compose.
 Application that simulates a virtual gallery, with some famous artworks  
 where you can exchange images by clicking on buttons to go forward or backward.
 
+![artWorkPreview](https://github.com/EdilsonDiasAlves/ArtGallery/assets/5980465/31f7169d-ee6b-4993-b3c9-ef9dc42b34aa)
+
 ## Getting Started
 
 ### Before install, You must have at least
