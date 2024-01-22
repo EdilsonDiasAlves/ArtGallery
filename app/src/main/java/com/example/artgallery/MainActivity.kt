@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -24,9 +26,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
@@ -69,12 +72,13 @@ fun ArtWorkLayout(artWorks: List<ArtWork>) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(50.dp)
-            .padding(top = 100.dp)
+            .padding(top = 10.dp)
+            .verticalScroll(rememberScrollState())
     ) {
 
-        var currentIndex by remember { mutableStateOf(0) }
-        ArtWorkIllustration(artWorks[currentIndex])
-        ArtWorkDetails(artWorks[currentIndex])
+        var currentIndex by rememberSaveable  { mutableStateOf(0) }
+        ArtWorkIllustration(artWorks[currentIndex], modifier = Modifier.align(CenterHorizontally))
+        ArtWorkDetails(artWorks[currentIndex], modifier = Modifier.align(CenterHorizontally))
         ButtonSection(
             onPreviousClick = {
                 if(currentIndex > 0) currentIndex --
@@ -88,7 +92,7 @@ fun ArtWorkLayout(artWorks: List<ArtWork>) {
 
 @Composable
 fun ArtWorkIllustration(artWork: ArtWork, modifier: Modifier = Modifier) {
-    Box(modifier = Modifier
+    Box(modifier = modifier
         .padding(bottom = 50.dp)
         .background(Color.Transparent)
         .shadow(elevation = 5.dp, spotColor = Color.Transparent)
@@ -109,7 +113,7 @@ fun ArtWorkDetails(artWork: ArtWork, modifier: Modifier = Modifier) {
     Column(
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Center,
-        modifier = Modifier
+        modifier = modifier
             .background(LightBlue)
             .padding(10.dp)
             .width(300.dp)
@@ -131,7 +135,7 @@ fun ArtWorkDetails(artWork: ArtWork, modifier: Modifier = Modifier) {
 @Composable
 fun ButtonSection(onPreviousClick: () -> Unit, onNextClick: () -> Unit, modifer:Modifier = Modifier) {
     Row(
-        modifier = Modifier.padding(top = 20.dp)
+        modifier = modifer.padding(top = 20.dp)
     ) {
         Button(
             onClick = onPreviousClick,
